@@ -5,6 +5,7 @@ import { addBattleCamera3dToSettings } from './addBattleCamera3dToSettings';
 import { addBerryAndCookingDataToItems } from './addBerryAndCookingDataToItems';
 import { addCsvForEventFolders } from './addCsvForEventFolders';
 import { addCsvForQuestsCustomObjectives } from './addCsvForQuestsCustomObjectives';
+import { addDaycarePriceRateToSettings } from './addDaycarePriceRateToSettings';
 import { addEggInCreatureResources } from './addEggInCreatureResources';
 import { addFormNamesDescriptions } from './addFormNamesDescriptions';
 import { addMegaEvolutionParameterToItems } from './addMegaEvolutionParameterToItems';
@@ -196,5 +197,10 @@ export const MIGRATION_CONFIG: MigrateConfigType[] = [
     migration: addTrainerPartyMaxSizeToSettings,
     version: '2.9.1',
     message: 'add_trainer_party_max_size_to_settings',
+  },
+  {
+    migration: addDaycarePriceRateToSettings,
+    version: '2.9.1',
+    message: 'add_daycare_price_rate_to_settings',
   },
 ];

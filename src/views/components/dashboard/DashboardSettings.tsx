@@ -19,6 +19,7 @@ export const DashboardSettings = () => {
   const [maxItemCount, setMaxBagItemCount] = useState(settings.maxBagItemCount);
   const [baseStatMaxValue, setBaseStatMaxValue] = useState(settings.baseStatMaxValue);
   const [trainerPartyMaxSize, setTrainerPartyMaxSize] = useState(settings.trainerPartyMaxSize);
+  const [daycarePriceRate, setDaycarePriceRate] = useState(settings.daycarePriceRate);
   const currentEditedSettings = useMemo(() => cloneEntity(settings), [settings]);
 
   const updateSettingsConfig = () => {
@@ -27,6 +28,7 @@ export const DashboardSettings = () => {
     setMaxBagItemCount(currentEditedSettings.maxBagItemCount);
     setBaseStatMaxValue(currentEditedSettings.baseStatMaxValue);
     setTrainerPartyMaxSize(currentEditedSettings.trainerPartyMaxSize);
+    setDaycarePriceRate(currentEditedSettings.daycarePriceRate);
     setSettings(currentEditedSettings);
   };
 
@@ -66,6 +68,19 @@ export const DashboardSettings = () => {
     const trainerPartyMaxSize = parseInt(event.target.value);
     if (trainerPartyMaxSize < 1 || trainerPartyMaxSize > 99) return event.preventDefault();
     currentEditedSettings.trainerPartyMaxSize = trainerPartyMaxSize;
+    updateSettingsConfig();
+  };
+
+  const onChangeDaycarePriceRate = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const daycarePrice = parseInt(event.target.value);
+    if (daycarePrice < 0 || daycarePrice > 99999) return event.preventDefault();
+    setDaycarePriceRate(daycarePrice);
+  };
+
+  const onBlurDaycarePriceRate = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const daycarePrice = parseInt(event.target.value);
+    if (daycarePrice < 0 || daycarePrice > 99999) return event.preventDefault();
+    currentEditedSettings.daycarePriceRate = daycarePrice;
     updateSettingsConfig();
   };
 
@@ -122,6 +137,19 @@ export const DashboardSettings = () => {
             onChange={onChangeTrainerPartyMaxSize}
             onBlur={onBlurTrainerPartyMaxSize}
             placeholder="6"
+          />
+        </InputWithLeftLabelContainer>
+        <InputWithLeftLabelContainer>
+          <Label htmlFor="daycare-price-rate">{t('daycare_price_rate')}</Label>
+          <Input
+            type="number"
+            name="daycare-price-rate"
+            min="0"
+            max="99999"
+            value={isNaN(daycarePriceRate) ? '' : daycarePriceRate}
+            onChange={onChangeDaycarePriceRate}
+            onBlur={onBlurDaycarePriceRate}
+            placeholder="100"
           />
         </InputWithLeftLabelContainer>
         <InputWithLeftLabelContainer>

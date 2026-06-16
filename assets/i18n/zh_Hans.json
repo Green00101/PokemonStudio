@@ -1917,5 +1917,7 @@
   "assigning_tiled_maps_success": "Tiled maps successfully assigned",
   "assigning_tiled_maps_error": "Error while assigning Tiled maps",
   "max_trainer_party_size": "Max trainer party size",
-  "add_trainer_party_max_size_to_settings": "Add trainer party max size to settings"
+  "add_trainer_party_max_size_to_settings": "Add trainer party max size to settings",
+  "daycare_price_rate": "Daycare price rate",
+  "add_daycare_price_rate_to_settings": "Add the daycare price rate to project settings"
 }

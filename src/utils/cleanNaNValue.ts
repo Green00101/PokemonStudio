@@ -45,6 +45,7 @@ export const cleaningSettingsNaNValues = (v: StudioSettingConfig) => {
   v.maxBagItemCount = cleanNaNValue(v.maxBagItemCount);
   v.baseStatMaxValue = cleanNaNValue(v.baseStatMaxValue, 999);
   v.trainerPartyMaxSize = cleanNaNValue(v.trainerPartyMaxSize, 6);
+  v.daycarePriceRate = cleanNaNValue(v.daycarePriceRate, 100);
 };
 
 export const cleaningTextNaNValues = (v: StudioTextConfig) => {

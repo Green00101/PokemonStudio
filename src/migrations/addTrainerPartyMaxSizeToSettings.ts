@@ -5,21 +5,21 @@ import fsPromise from 'fs/promises';
 import path from 'path';
 import { deletePSDKDatFile } from './migrateUtils';
 
-const PRE_MIGRATION_SETTINGS_CONFIG_VALIDATOR = SETTINGS_CONFIG_VALIDATOR.omit({ trainerPartyMaxSize: true });
+const PRE_MIGRATION_SETTINGS_CONFIG_VALIDATOR = SETTINGS_CONFIG_VALIDATOR.omit({ trainerPartyMaxSize: true, daycarePriceRate: true });
 
 export const addTrainerPartyMaxSizeToSettings = async (_: IpcMainEvent, projectPath: string) => {
-    deletePSDKDatFile(projectPath);
+  deletePSDKDatFile(projectPath);
 
-    const settingsFilePath = path.join(projectPath, 'Data/configs/settings_config.json');
+  const settingsFilePath = path.join(projectPath, 'Data/configs/settings_config.json');
 
-    const settingsFile = await fsPromise.readFile(settingsFilePath, { encoding: 'utf-8' });
-    const settingsFileParsed = PRE_MIGRATION_SETTINGS_CONFIG_VALIDATOR.safeParse(parseJSON(settingsFile, 'settings_config.json'));
-    if (!settingsFileParsed.success) throw new Error('Fail to parse settings_config.json file');
+  const settingsFile = await fsPromise.readFile(settingsFilePath, { encoding: 'utf-8' });
+  const settingsFileParsed = PRE_MIGRATION_SETTINGS_CONFIG_VALIDATOR.safeParse(parseJSON(settingsFile, 'settings_config.json'));
+  if (!settingsFileParsed.success) throw new Error('Fail to parse settings_config.json file');
 
-    const newSettingsFile: StudioSettingConfig = {
-        ...settingsFileParsed.data,
-        trainerPartyMaxSize: 6,
-    };
+  const newSettingsFile: Omit<StudioSettingConfig, 'daycarePriceRate'> = {
+    ...settingsFileParsed.data,
+    trainerPartyMaxSize: 6,
+  };
 
-    await fsPromise.writeFile(settingsFilePath, JSON.stringify(newSettingsFile, null, 2));
+  await fsPromise.writeFile(settingsFilePath, JSON.stringify(newSettingsFile, null, 2));
 };

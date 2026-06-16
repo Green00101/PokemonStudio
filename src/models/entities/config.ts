@@ -107,6 +107,7 @@ export const SETTINGS_CONFIG_VALIDATOR = z.object({
   showRibbonsSummaryPage: z.boolean(),
   baseStatMaxValue: POSITIVE_INT.max(9999).default(999),
   trainerPartyMaxSize: POSITIVE_INT.max(99).default(6),
+  daycarePriceRate: POSITIVE_OR_ZERO_INT.max(99999).default(100),
 });
 export type StudioSettingConfig = z.infer<typeof SETTINGS_CONFIG_VALIDATOR>;
 

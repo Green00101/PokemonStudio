@@ -8,6 +8,7 @@ import { deletePSDKDatFile } from './migrateUtils';
 const PRE_MIGRATION_SETTINGS_CONFIG_VALIDATOR = SETTINGS_CONFIG_VALIDATOR.omit({
   baseStatMaxValue: true,
   trainerPartyMaxSize: true,
+  daycarePriceRate: true,
 });
 
 export const addBaseStatMaxValueToSettings = async (_: IpcMainEvent, projectPath: string) => {
@@ -19,7 +20,7 @@ export const addBaseStatMaxValueToSettings = async (_: IpcMainEvent, projectPath
   const settingsFileParsed = PRE_MIGRATION_SETTINGS_CONFIG_VALIDATOR.safeParse(parseJSON(settingsFile, 'settings_config.json'));
   if (!settingsFileParsed.success) throw new Error('Fail to parse settings_config.json file');
 
-  const newSettingsFile: Omit<StudioSettingConfig, 'trainerPartyMaxSize'> = {
+  const newSettingsFile: Omit<StudioSettingConfig, 'trainerPartyMaxSize' | 'daycarePriceRate'> = {
     ...settingsFileParsed.data,
     baseStatMaxValue: 999,
   };
